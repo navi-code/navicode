@@ -52,4 +52,5 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.6",
     ],
+    install_requires=["Flask", "torch>=1.2.0", "sentence-transformers"],
 )
