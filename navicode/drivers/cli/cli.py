@@ -38,11 +38,11 @@ def navicode_init():
             filename = python_file[python_file.index(dirname):]
             for comment in comments:
                 if filename in comments_dump.keys():
-                    comments_dump[filename].append(len(corpus))
+                    comments_dump[filename].append(str(len(corpus)) + '---' + str(comment[1]))
                 else:
-                    comments_dump[filename] = [len(corpus)]
+                    comments_dump[filename] = [str(len(corpus)) + '---' + str(comment[1])]
 
-                corpus.append(comment)
+                corpus.append(comment[0])
 
         print(f"\nComputing comment embeddings for {len(corpus)} comments . . .")
 
@@ -54,3 +54,16 @@ def navicode_init():
 
         with open(os.path.join(navi_dir, dirname + '_navi.json'), 'w') as file:
             json.dump(comments_dump, file, indent=4)
+
+def navicode_query():
+    cur_dir = os.getcwd()
+    navi_dir = os.path.join(cur_dir, ".navi")
+
+    if not os.path.exists(navi_dir):
+        print("\033[91mError: NaviCode not initialized, use 'navicode --init' to initialize!")
+        return
+
+    print("\nInitializing model . . .")
+
+    embedder = SentenceTransformer('distilbert-base-nli-stsb-mean-tokens')
+
