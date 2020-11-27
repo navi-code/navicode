@@ -1,5 +1,7 @@
 # NaviCode
 
+Navigate through large codebases with ease. NaviCode is a command line tool which uses "Sentence Transformers" to search for relevant filename along with line number which might be relevant to your problem, just query whatever change you want to make and it will point out which files and sections of codebase to look into.
+
 ## Installation
 
 ```bash
