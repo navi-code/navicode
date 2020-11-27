@@ -2,6 +2,8 @@ import os
 import codecs
 import pathlib
 from setuptools import setup, find_packages
+from setuptools.command.install import install
+from subprocess import call
 
 # The directory containing this file
 HERE = pathlib.Path(__file__).parent
@@ -24,6 +26,10 @@ def get_version(rel_path):
     else:
         raise RuntimeError("Unable to find version string.")
 
+class CustomInstall(install):
+    def run(self):
+        install.run(self)
+        call(['pip', 'install', 'faiss-cpu', '--no-cache'])
 
 # This call to setup() does all the work
 setup(
@@ -38,6 +44,9 @@ setup(
     author="Siddhartha Dhar Choudhury",
     author_email="sdharchou@gmail.com",
     license="GNU General Public License v3",
+    cmdclass = {
+        'install': CustomInstall,
+    },
     packages = find_packages(),
     entry_points ={
         'console_scripts': [
@@ -52,5 +61,5 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.6",
     ],
-    install_requires=["Flask", "torch>=1.2.0", "sentence-transformers", "numpy", "faiss-cpu --no-cache"],
+    install_requires=["Flask", "torch>=1.2.0", "sentence-transformers", "numpy", "faiss-cpu"],
 )
