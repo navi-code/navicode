@@ -70,7 +70,7 @@ def navicode_query():
 
     print("\nInitializing model . . .")
 
-    embedder = SentenceTransformer('distilbert-base-nli-stsb-mean-tokens')
+    embedder = SentenceTransformer('distilbert-base-nli-mean-tokens')
 
     print("\nLoading comment indexes and lookup JSON . . .")
 
